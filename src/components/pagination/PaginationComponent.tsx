@@ -3,7 +3,7 @@ import { Post } from "../../types";
 import Pagination from "./Pagination";
 const PaginationComponent = () => {
      const [posts, setPosts] = useState<Post[]>([]);
-     const [currentPage, setCurrentPage] = useState(5);
+     const [currentPage, setCurrentPage] = useState(1);
      const [totalPages, setTotalPages] = useState(0);
      const [loading, setLoading] = useState(false);
      const [error, setError] = useState("");
@@ -39,23 +39,27 @@ const PaginationComponent = () => {
      return (
           <div className="pb-20 mx-auto mt-20 space-y-4 max-w-7xl">
                <h3 className="text-4xl font-bold text-center text-orange-500">Pagination</h3>
-               <div className="grid gap-8 p-6 lg:gap-16 lg:p-0 lg:grid-cols-3 sm:grid-cols-2">
-                    {posts.map(post => (
-                         <div key={post.id} className="p-4 border border-orange-500 rounded-lg shadow-xl ">
-                              {loading ? (
-                                   <div className="w-full h-full">
-                                        <h3 className="text-lg font-semibold">Title is loading</h3>
-                                        <p className="text-sm">Post description is loading</p>
-                                   </div>
-                              ) : (
-                                   <>
-                                        <h3 className="text-lg font-semibold">{post.title}</h3>
-                                        <p className="text-sm">{post.body}</p>
-                                   </>
-                              )}
-                         </div>
-                    ))}
-               </div>
+               {error ? (
+                    <p className="text-4xl font-bold text-center">{error}</p>
+               ) : (
+                    <div className="grid gap-8 p-6 lg:gap-16 lg:p-0 lg:grid-cols-3 sm:grid-cols-2">
+                         {posts.map(post => (
+                              <div key={post.id} className="p-4 border border-orange-500 rounded-lg shadow-xl ">
+                                   {loading ? (
+                                        <div className="w-full h-full">
+                                             <h3 className="text-lg font-semibold">Title is loading</h3>
+                                             <p className="text-sm">Post description is loading</p>
+                                        </div>
+                                   ) : (
+                                        <>
+                                             <h3 className="text-lg font-semibold">{post.title}</h3>
+                                             <p className="text-sm">{post.body}</p>
+                                        </>
+                                   )}
+                              </div>
+                         ))}
+                    </div>
+               )}
                <Pagination currentPage={currentPage} onPageChange={handlePageChange} totalPages={totalPages} />
           </div>
      );

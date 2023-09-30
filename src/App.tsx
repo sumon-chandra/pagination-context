@@ -1,9 +1,11 @@
-import PaginationComponent from "./components/pagination/PaginationComponent";
+import TodoComponent from "./components/contextAPI/TodoComponent";
+// import PaginationComponent from "./components/pagination/PaginationComponent";
 
 const App = () => {
      return (
           <>
-               <PaginationComponent />
+               <TodoComponent />
+               {/* <PaginationComponent /> */}
           </>
      );
 };
