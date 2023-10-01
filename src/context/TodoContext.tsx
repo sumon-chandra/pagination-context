@@ -37,9 +37,20 @@ const todoReducer = (state: TodoState, action: TodoActionTypes): TodoState => {
                localStorage.setItem("TODOS", JSON.stringify(newTodos));
                return newTodos;
           case REMOVE_TODO:
-               return { todos: state.todos.filter(todo => todo.id !== action.payload) };
+               const filteredTodo = { todos: state.todos.filter(todo => todo.id !== action.payload) };
+               // Set the new TODO state in LocalStorage
+               localStorage.setItem("TODOS", JSON.stringify(filteredTodo));
+               return filteredTodo;
           case TOGGLE_TODO:
-               return { todos: state.todos.map(todo => (todo.id === action.payload ? { ...todo, completed: !todo.completed } : todo)) };
+               const updatedTodos = { todos: state.todos.map(todo => (todo.id === action.payload ? { ...todo, completed: !todo.completed } : todo)) };
+               // Set the new TODO state in LocalStorage
+               localStorage.setItem("TODOS", JSON.stringify(updatedTodos));
+               return updatedTodos;
+          case UPDATE_TODO:
+               const editedTodos = { todos: state.todos.map(todo => (todo.id === action.payload.id ? action.payload.todo : todo)) };
+               // Set the new TODO state in LocalStorage
+               localStorage.setItem("TODOS", JSON.stringify(editedTodos));
+               return editedTodos;
           default:
                return state;
      }
