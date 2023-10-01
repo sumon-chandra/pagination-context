@@ -20,6 +20,9 @@ interface TodoContextType {
 
 const TodoContext = createContext<TodoContextType | null>(null);
 
+// Get all stored TODO from LocalStorage
+const todosFromLS = JSON.parse(localStorage.getItem("TODOS")!);
+
 const todoReducer = (state: TodoState, action: TodoActionTypes): TodoState => {
      switch (action.type) {
           case ADD_TODO:
@@ -28,7 +31,11 @@ const todoReducer = (state: TodoState, action: TodoActionTypes): TodoState => {
                     title: action.payload,
                     completed: false,
                };
-               return { todos: [...state.todos, todo] };
+               const newTodos = { todos: [...state.todos, todo] };
+
+               // Set the new TODO state in LocalStorage
+               localStorage.setItem("TODOS", JSON.stringify(newTodos));
+               return newTodos;
           case REMOVE_TODO:
                return { todos: state.todos.filter(todo => todo.id !== action.payload) };
           case TOGGLE_TODO:
@@ -37,9 +44,8 @@ const todoReducer = (state: TodoState, action: TodoActionTypes): TodoState => {
                return state;
      }
 };
-const initialState: TodoState = {
-     todos: [],
-};
+
+const initialState: TodoState = todosFromLS;
 
 export const TodoProvider: FC<{ children: ReactNode }> = ({ children }) => {
      const [state, dispatch] = useReducer(todoReducer, initialState);

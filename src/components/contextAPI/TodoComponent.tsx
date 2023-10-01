@@ -4,6 +4,7 @@ import Todo from "./Todo";
 
 const TodoComponent = () => {
      const { state } = useTodo();
+     console.log(state.todos);
 
      return (
           <div className="max-w-4xl pb-20 mx-auto mt-20 space-y-4">
@@ -11,7 +12,7 @@ const TodoComponent = () => {
                <div>
                     <Form />
                     <div className="flex flex-col gap-3 mt-10">
-                         {state.todos.map(todo => (
+                         {state?.todos?.map(todo => (
                               <Todo todo={todo} key={todo.id} />
                          ))}
                     </div>

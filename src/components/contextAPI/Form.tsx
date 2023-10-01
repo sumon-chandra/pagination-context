@@ -16,8 +16,9 @@ const Form = () => {
      return (
           <form onSubmit={handleAddTodo} className="flex items-center justify-center gap-4">
                <input
-                    className="w-1/2 px-3 py-2 border border-orange-500 rounded-lg"
+                    className="w-1/2 px-3 py-2 border border-orange-500 rounded-lg focus:outline-2 outline-orange-500"
                     type="text"
+                    required
                     placeholder="What's in your mind?"
                     value={todoTitle}
                     onChange={getTodoTitle}
